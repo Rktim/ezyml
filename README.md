@@ -1,260 +1,135 @@
-📦 ezyml — Train and Export ML Models in 1 Line
-ezyml is a lightweight Python and CLI tool to train, evaluate, and export ML models for classification, regression, clustering, and dimensionality reduction — all in a single command or function call.
+<div align="center">
 
-🌟 Features
-✅ Auto-detects task (classification / regression / clustering / PCA)
-✅ Trains supported models with proper preprocessing
-✅ Saves .pkl model and .json metrics
-✅ Works as both a Python API and CLI tool
-✅ Built-in support for 20+ ML models
-✅ Optional dimensionality reduction with PCA/t-SNE
-✅ Exportable model + report with 1 line
+# 📦 ezyml 🚀
 
-📦 Installation
+From raw data to a trained model — in just one line of code.
+
+<a href="https://pypi.org/project/ezyml/">
+  <img alt="PyPI" src="https://img.shields.io/pypi/v/ezyml?color=blue&label=PyPI&logo=pypi">
+</a>
+<a href="https://github.com/Rktim/ezyml/blob/main/LICENSE">
+  <img alt="License" src="https://img.shields.io/github/license/Rktim/ezyml?color=blue">
+</a>
+<img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/ezyml?logo=python&logoColor=white">
+
+</div>
+
+---
+
+## 🌟 Why ezyml?
+
+**ezyml** is a lightweight, high-level Python library and CLI tool that automates the most tedious parts of your ML pipeline — so you can focus on what matters. Whether you're building a classifier, a regressor, or just exploring data, ezyml does the heavy lifting.
+
+### ✅ Key Features
+
+* 🪄 **Auto-Pilot Mode** – Detects task type (classification, regression, etc.) automatically.
+* 🧹 **Smart Preprocessing** – Handles missing values, encodes categories, and scales features out of the box.
+* 🧰 **20+ Models** – Pre-integrated models from `scikit-learn` and `xgboost`.
+* 💾 **One-Line Export** – Save your model as `.pkl` and performance report as `.json`.
+* 📉 **Dimensionality Reduction** – Easily visualize data using PCA or t-SNE.
+* 🧪 **Dual Interface** – Use as a Python package *or* from the command line.
+
+---
+
+## 📦 Installation
+
+Install via pip:
+
+```bash
 pip install ezyml
+```
 
-💻 CLI Usage
-🧠 Train a Classification Model
-ezyml train 
+---
 
---data data.csv 
+## 🚀 CLI Quickstart
 
---target label 
+### 🧠 Train a Classifier
 
---model xgboost 
+```bash
+ezyml train \
+  --data titanic.csv \
+  --target Survived \
+  --model extra_trees \
+  --output titanic_model.pkl
+```
 
---output model.pkl 
+### 📈 Train a Regressor
 
---report report.json
+```bash
+ezyml train \
+  --data housing.csv \
+  --target price \
+  --model ridge \
+  --output house_price_model.pkl
+```
 
-📈 Train a Regression Model
-ezyml train --data house.csv --target price --model lasso --output house_model.pkl
+### 📉 Run PCA
 
-🔍 Clustering
-ezyml train --data user_vectors.csv --model dbscan --task clustering
+```bash
+ezyml reduce \
+  --data features.csv \
+  --model pca \
+  --components 2 \
+  --output pca_data.csv
+```
 
-📉 Dimensionality Reduction (PCA)
-ezyml reduce --data image_data.csv --model pca --components 2 --output pca_result.csv
+---
 
-🧪 Python API Usage
+## 🧪 Python API Example
+
+### ▶️ Classification
+
+```python
 from ezyml import EZTrainer
 
-Classification example
+# 1. Initialize
 trainer = EZTrainer(data='heart.csv', target='label', model='naive_bayes')
+
+# 2. Train
 trainer.train()
+
+# 3. Save Results
 trainer.save_model('heart_model.pkl')
 trainer.save_report('heart_report.json')
+```
 
-PCA example
-trainer = EZTrainer(data='high_dim.csv', model='pca', task='dim_reduction', n_components=2)
-trainer.train()
-trainer.save_transformed('pca_output.csv')
+### 🔍 Dimensionality Reduction (PCA)
 
-🧰 Supported Tasks and Models
-🧠 Classification Models
-Model Name
+```python
+from ezyml import EZTrainer
 
-Code ID
-
-Logistic Regression
-
-logistic_regression
-
-Random Forest
-
-random_forest
-
-XGBoost Classifier
-
-xgboost
-
-SVM (Linear)
-
-svm
-
-Naive Bayes
-
-naive_bayes
-
-Gradient Boosting
-
-gradient_boosting
-
-Extra Trees
-
-extra_trees
-
-K-Nearest Neighbors
-
-knn
-
-📈 Regression Models
-Model Name
-
-Code ID
-
-Linear Regression
-
-linear_regression
-
-Ridge Regression
-
-ridge
-
-Lasso Regression
-
-lasso
-
-ElasticNet
-
-elasticnet
-
-Random Forest Regr.
-
-random_forest
-
-XGBoost Regr.
-
-xgboost
-
-SVR
-
-svr
-
-Gradient Boosting
-
-gradient_boosting
-
-🔍 Clustering Models
-Model Name
-
-Code ID
-
-KMeans
-
-kmeans
-
-DBSCAN
-
-dbscan
-
-Agglomerative Clustering
-
-agglo
-
-📉 Dimensionality Reduction
-Method
-
-Code ID
-
-PCA
-
-pca
-
-t-SNE
-
-tsne
-
-📊 Metrics
-Task
-
-Metrics
-
-Classification
-
-Accuracy, F1, ROC AUC, Confusion Matrix
-
-Regression
-
-MAE, MSE, RMSE, R²
-
-Clustering
-
-Silhouette Score, n_clusters
-
-PCA/t-SNE
-
-None (returns transformed data)
-
-🧠 API Reference: EZTrainer
-EZTrainer(
-data: str | pd.DataFrame,
-target: str | None = None,
-model: str = "random_forest",
-task: str = "auto",  # or: classification, regression, clustering, dim_reduction
-test_size: float = 0.2,
-scale: bool = True,
-n_components: int = None,  # For PCA or t-SNE
+pca_trainer = EZTrainer(
+    data='high_dim.csv',
+    model='pca',
+    task='dim_reduction',
+    n_components=2
 )
 
-Methods
-Method
+pca_trainer.train()
+pca_trainer.save_transformed('pca_output.csv')
+```
 
-Description
+---
 
-.train()
+## 🧰 Supported Models
 
-Trains the selected model
+| Task                         | Models                                                                                                             |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Classification**           | `logistic_regression`, `random_forest`, `xgboost`, `svm`, `naive_bayes`, `gradient_boosting`, `extra_trees`, `knn` |
+| **Regression**               | `linear_regression`, `ridge`, `lasso`, `elasticnet`, `random_forest`, `xgboost`, `svr`, `gradient_boosting`        |
+| **Clustering**               | `kmeans`, `dbscan`, `agglo` (Agglomerative Clustering)                                                             |
+| **Dimensionality Reduction** | `pca`, `tsne`                                                                                                      |
 
-.save_model(path)
+---
 
-Saves the model to .pkl
+## 📜 License
 
-.save_report(path)
+MIT License – [View License](https://github.com/Rktim/ezyml/blob/main/LICENSE)
 
-Saves metrics/report as .json
+---
 
-.save_transformed(path)
+## 👨‍💻 Author
 
-Saves transformed data for PCA/t-SNE
+Built with ❤️ by [Raktim Kalita](https://github.com/Rktim)
 
-.predict(X)
-
-Returns predictions
-
-🧰 CLI Reference
-
-General training
-ezyml train 
-
---data FILE.csv 
-
---target TARGET 
-
---model MODEL_NAME 
-
---output model.pkl 
-
---report metrics.json 
-
---task classification|regression|clustering
-
-Dimensionality Reduction
-ezyml reduce --data FILE.csv --model pca --components 2 --output reduced.csv
-
-🧪 Examples
-Classify Titanic Dataset with Extra Trees:
-
-ezyml train --data titanic.csv --target Survived --model extra_trees --output model.pkl
-
-Regress Housing Prices using Ridge:
-
-ezyml train --data housing.csv --target price --model ridge --output model.pkl
-
-Cluster Data:
-
-ezyml train --data vectors.csv --model kmeans --task clustering
-
-PCA:
-
-ezyml reduce --data features.csv --model pca --components 2 --output pca_data.csv
-
-
-
-📜 License
-MIT License
-
-👨‍💻 Author
-Raktim Kalita
-Machine Learning Engineer, Automator of Ideas 💡
-GitHub: @raktimkalita
+---
