@@ -12,6 +12,7 @@ From raw data to a trained model — in just one line of code.
 </a>
 <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/ezyml?logo=python&logoColor=white">
 
+
 </div>
 
 ---
