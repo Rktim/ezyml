@@ -11,12 +11,14 @@ From raw data to a trained model — in just one line of code.
   <img alt="License" src="https://img.shields.io/github/license/Rktim/ezyml?color=blue">
 </a>
 <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/ezyml?logo=python&logoColor=white">
-
+  
+  
+[![PyPI Downloads](https://static.pepy.tech/badge/ezyml)](https://pepy.tech/projects/ezyml)
 
 </div>
 
 
-[![PyPI Downloads](https://static.pepy.tech/badge/ezyml)](https://pepy.tech/projects/ezyml)
+
 
 ---
 
