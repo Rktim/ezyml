@@ -15,6 +15,9 @@ From raw data to a trained model — in just one line of code.
 
 </div>
 
+
+[![PyPI Downloads](https://static.pepy.tech/badge/ezyml)](https://pepy.tech/projects/ezyml)
+
 ---
 
 ## 🌟 Why ezyml?
