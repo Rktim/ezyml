@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="ezyml",
-    version="1",
+    version="1.2",
     author="Raktim Kalita",
     author_email="raktimkalita.ai@gmail.com",
     description="A lightweight tool to train, evaluate, and export ML models in one line.",
