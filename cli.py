@@ -2,7 +2,7 @@
 
 import argparse
 import pandas as pd
-from .ezyml import EZTrainer
+from .core import EZTrainer
 
 def train_cli(args):
     """Handler for the 'train' command."""
