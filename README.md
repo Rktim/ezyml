@@ -4,9 +4,7 @@
 
 From raw data to a trained model — in just one line of code.
 
-<a href="https://pypi.org/project/ezyml/">
-  <img alt="PyPI" src="https://img.shields.io/pypi/v/ezyml?color=blue&label=PyPI&logo=pypi">
-</a>
+
 <a href="https://github.com/Rktim/ezyml/blob/main/LICENSE">
   <img alt="License" src="https://img.shields.io/github/license/Rktim/ezyml?color=blue">
 </a>
