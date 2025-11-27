@@ -40,7 +40,7 @@ From raw data to a trained model — in just one line of code.
 Install via pip:
 
 ```bash
-pip install ezyml
+pip install ezyml==1.2.1
 ```
 
 ---
@@ -137,3 +137,4 @@ MIT License – [View License](https://github.com/Rktim/ezyml/blob/main/LICENSE)
 Built with ❤️ by [Raktim Kalita](https://github.com/Rktim)
 
 ---
+
