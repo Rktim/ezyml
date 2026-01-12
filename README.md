@@ -2,127 +2,179 @@
 
 # 📦 ezyml 🚀
 
-From raw data to a trained model — in just one line of code.
+### **Version 2.0**
 
+**From raw data to a deployable ML system — in one command.**
 
 <a href="https://github.com/Rktim/ezyml/blob/main/LICENSE">
   <img alt="License" src="https://img.shields.io/github/license/Rktim/ezyml?color=blue">
 </a>
 <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/ezyml?logo=python&logoColor=white">
-  
-  
+<img alt="Version" src="https://img.shields.io/badge/version-2.0-success">
+
 [![PyPI Downloads](https://static.pepy.tech/badge/ezyml)](https://pepy.tech/projects/ezyml)
 
 </div>
 
+---
 
+## 🚀 What’s New in v2.0
 
+**ezyml 2.0 is a major architectural upgrade.**
+It is no longer just a trainer — it is a **machine‑learning compiler**.
+
+### 🆕 Major Additions
+
+* 🧠 **`ezyml compile`** – one command to generate models, metrics, APIs, demos, and infra
+* 🧩 **Pipeline‑Driven Execution** – YAML‑based pipelines with visual DAGs
+* 🎛 **User‑Controlled Artifacts** – generate *only* what you ask for
+* 📊 **Auto‑EDA + Evaluator** – dataset profiling, metrics, plots
+* 🧪 **Production‑Ready Demos** – high‑quality Streamlit UI generation
+* 📦 **Deployment Tooling** – FastAPI, Docker, Kubernetes YAML
+* 🔍 **Dataset Fingerprinting** – reproducibility by design
 
 ---
 
 ## 🌟 Why ezyml?
 
-**ezyml** is a lightweight, high-level Python library and CLI tool that automates the most tedious parts of your ML pipeline — so you can focus on what matters. Whether you're building a classifier, a regressor, or just exploring data, ezyml does the heavy lifting.
+**ezyml** removes boilerplate across the *entire* ML lifecycle:
 
-### ✅ Key Features
+> dataset → training → evaluation → deployment → demo
 
-* 🪄 **Auto-Pilot Mode** – Detects task type (classification, regression, etc.) automatically.
-* 🧹 **Smart Preprocessing** – Handles missing values, encodes categories, and scales features out of the box.
-* 🧰 **20+ Models** – Pre-integrated models from `scikit-learn` and `xgboost`.
-* 💾 **One-Line Export** – Save your model as `.pkl` and performance report as `.json`.
-* 📉 **Dimensionality Reduction** – Easily visualize data using PCA or t-SNE.
-* 🧪 **Dual Interface** – Use as a Python package *or* from the command line.
+All without forcing you into a framework lock‑in.
+
+### Core Philosophy
+
+* **Explicit over magic** – nothing is generated unless you ask
+* **Beginner‑friendly, expert‑capable**
+* **Composable, inspectable, debuggable**
 
 ---
 
 ## 📦 Installation
 
-Install via pip:
-
 ```bash
-pip install ezyml==1.2.1
+pip install ezyml==2.0.0
 ```
 
 ---
 
 ## 🚀 CLI Quickstart
 
-### 🧠 Train a Classifier
+### 🧠 Train (v1 compatible)
 
 ```bash
 ezyml train \
-  --data titanic.csv \
-  --target Survived \
-  --model extra_trees \
-  --output titanic_model.pkl
-```
-
-### 📈 Train a Regressor
-
-```bash
-ezyml train \
-  --data housing.csv \
-  --target price \
-  --model ridge \
-  --output house_price_model.pkl
-```
-
-### 📉 Run PCA
-
-```bash
-ezyml reduce \
-  --data features.csv \
-  --model pca \
-  --components 2 \
-  --output pca_data.csv
+  --data data.csv \
+  --target label \
+  --model random_forest
 ```
 
 ---
 
-## 🧪 Python API Example
+### 🧩 Compile a Full ML System (v2.0)
 
-### ▶️ Classification
-
-```python
-from ezyml import EZTrainer
-
-# 1. Initialize
-trainer = EZTrainer(data='heart.csv', target='label', model='naive_bayes')
-
-# 2. Train
-trainer.train()
-
-# 3. Save Results
-trainer.save_model('heart_model.pkl')
-trainer.save_report('heart_report.json')
+```bash
+ezyml compile \
+  --pipeline pipeline.yaml \
+  --data data.csv \
+  --target label
 ```
 
-### 🔍 Dimensionality Reduction (PCA)
+**Default output (minimal):**
+
+```
+build/
+├── model.pkl
+└── metrics.json
+```
+
+---
+
+### 🎛 User‑Controlled Outputs
+
+```bash
+ezyml compile \
+  --pipeline pipeline.yaml \
+  --data data.csv \
+  --target label \
+  --api \
+  --demo \
+  --docker \
+  --k8s
+```
+
+---
+
+## 🧪 Pipeline Example (YAML)
+
+```yaml
+steps:
+  trainer:
+    type: EZTrainer
+    params:
+      model: random_forest
+      target: label
+```
+
+---
+
+## 🧠 Python API (Still Supported)
 
 ```python
 from ezyml import EZTrainer
 
-pca_trainer = EZTrainer(
-    data='high_dim.csv',
-    model='pca',
-    task='dim_reduction',
-    n_components=2
+trainer = EZTrainer(
+    data="data.csv",
+    target="label",
+    model="random_forest"
 )
 
-pca_trainer.train()
-pca_trainer.save_transformed('pca_output.csv')
+trainer.train()
+trainer.save_model("model.pkl")
+trainer.save_report("metrics.json")
 ```
+
+---
+
+## 📊 Evaluation & Analytics
+
+* Accuracy, F1, ROC‑AUC (classification)
+* MAE, RMSE, R² (regression)
+* Confusion matrix, ROC & PR curves
+* Drift‑ready metric storage
+
+---
+
+## 📦 Deployment Targets
+
+| Layer         | Supported  |
+| ------------- | ---------- |
+| API           | FastAPI    |
+| Demo          | Streamlit  |
+| Container     | Docker     |
+| Orchestration | Kubernetes |
 
 ---
 
 ## 🧰 Supported Models
 
-| Task                         | Models                                                                                                             |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **Classification**           | `logistic_regression`, `random_forest`, `xgboost`, `svm`, `naive_bayes`, `gradient_boosting`, `extra_trees`, `knn` |
-| **Regression**               | `linear_regression`, `ridge`, `lasso`, `elasticnet`, `random_forest`, `xgboost`, `svr`, `gradient_boosting`        |
-| **Clustering**               | `kmeans`, `dbscan`, `agglo` (Agglomerative Clustering)                                                             |
-| **Dimensionality Reduction** | `pca`, `tsne`                                                                                                      |
+| Task           | Models                                                                                             |
+| -------------- | -------------------------------------------------------------------------------------------------- |
+| Classification | logistic_regression, random_forest, xgboost, svm, naive_bayes, gradient_boosting, extra_trees, knn |
+| Regression     | linear_regression, ridge, lasso, elasticnet, random_forest, xgboost, svr, gradient_boosting        |
+| Clustering     | kmeans, dbscan, agglo                                                                              |
+| Dim Reduction  | pca, tsne                                                                                          |
+
+---
+
+## 🔮 Roadmap
+
+* Learner Mode (explain decisions)
+* SHAP‑based explainability
+* Model comparison dashboards
+* Presets (`--preset production`)
+* CI/CD & MLOps integrations
 
 ---
 
@@ -134,7 +186,5 @@ MIT License – [View License](https://github.com/Rktim/ezyml/blob/main/LICENSE)
 
 ## 👨‍💻 Author
 
-Built with ❤️ by [Raktim Kalita](https://github.com/Rktim)
-
----
-
+Built with ❤️ by **Raktim Kalita**
+GitHub: [https://github.com/Rktim](https://github.com/Rktim)

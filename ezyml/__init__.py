@@ -5,5 +5,5 @@
 # Import the main class to make it directly accessible to users
 from .core import EZTrainer
 
-__version__ = "1.2.1"
+__version__ = "2.0"
 __author__ = "Raktim Kalita"
