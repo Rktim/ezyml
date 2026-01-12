@@ -61,13 +61,72 @@ pip install ezyml==2.0.0
 
 ## 🚀 CLI Quickstart
 
-### 🧠 Train (v1 compatible)
+Below are the **most common ways users interact with ezyml** — via the CLI or Python API.
+
+---
+
+### 🧠 Train a Model (CLI – v1 compatible)
 
 ```bash
 ezyml train \
   --data data.csv \
   --target label \
   --model random_forest
+```
+
+This trains a model and prints evaluation metrics.
+
+---
+
+### 🧩 Compile an End-to-End ML System (CLI – v2.0)
+
+**Minimal (no pipeline, no extras):**
+
+```bash
+ezyml compile \
+  --data heart.csv \
+  --target target
+```
+
+Generates:
+
+```
+build/
+├── model.pkl
+└── metrics.json
+```
+
+---
+
+### 🎛 Compile With Explicit Outputs
+
+```bash
+ezyml compile \
+  --data heart.csv \
+  --target target \
+  --api \
+  --demo \
+  --docker \
+  --k8s
+```
+
+Each flag enables a specific artifact:
+
+* `--api` → FastAPI inference app
+* `--demo` → Interactive Streamlit demo
+* `--docker` → Dockerfile
+* `--k8s` → Kubernetes manifests
+
+---
+
+### 🧩 Compile Using a YAML Pipeline (Advanced)
+
+```bash
+ezyml compile \
+  --pipeline pipeline.yaml \
+  --data heart.csv \
+  --target target \
+  --all
 ```
 
 ---
@@ -121,18 +180,57 @@ steps:
 
 ## 🧠 Python API (Still Supported)
 
+You can use **ezyml programmatically** without the CLI.
+
+### Basic Training
+
 ```python
-from ezyml import EZTrainer
+from ezyml.core import EZTrainer
 
 trainer = EZTrainer(
-    data="data.csv",
-    target="label",
+    data="heart.csv",
+    target="target",
     model="random_forest"
 )
 
 trainer.train()
 trainer.save_model("model.pkl")
 trainer.save_report("metrics.json")
+```
+
+---
+
+### Predictions in Python
+
+```python
+import pandas as pd
+from ezyml.core import EZTrainer
+
+trainer = EZTrainer(data="heart.csv", target="target")
+trainer.train()
+
+X_new = pd.read_csv("new_samples.csv")
+preds = trainer.predict(X_new)
+print(preds)
+```
+
+---
+
+### Using ezyml as a Library Component
+
+```python
+from ezyml.compiler.compile import compile_project
+from ezyml.core import EZTrainer
+
+trainer = EZTrainer(data="heart.csv", target="target")
+trainer.train()
+
+compile_project(
+    trainer=trainer,
+    schema={"age": "number", "chol": "number"},
+    api=True,
+    demo=True
+)
 ```
 
 ---
