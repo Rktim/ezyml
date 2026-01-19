@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ezyml"
-version = "2.0"
+version = "2"
 description = "From dataset to production ML system — in one command."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -127,6 +127,7 @@ ignore = ["E501"]
 
 [tool.mypy]
 ignore_missing_imports = true
+
 
 
 
