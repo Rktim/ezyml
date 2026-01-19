@@ -12,7 +12,7 @@ requires-python = ">=3.9"
 license = { text = "MIT" }
 
 authors = [
-  { name = "Raktim Kalita", email = "raktim@example.com" }
+  { name = "Raktim Kalita", email = "raktmxx@gmail.com" }
 ]
 
 keywords = [
@@ -127,3 +127,4 @@ ignore = ["E501"]
 
 [tool.mypy]
 ignore_missing_imports = true
+
